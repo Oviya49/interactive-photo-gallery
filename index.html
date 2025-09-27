@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Photo Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      margin: 20px;
+    }
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    #gallery img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #display {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #display img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    #altText {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Photo Gallery</h1>
+  
+  <div id="gallery">
+    <img src="https://picsum.photos/id/1011/200" alt="Mountain Lake">
+    <img src="https://picsum.photos/id/1025/200" alt="Dog Portrait">
+    <img src="https://picsum.photos/id/1035/200" alt="Forest Trees">
+    <img src="https://picsum.photos/id/1041/200" alt="Beach Sunrise">
+    <img src="https://picsum.photos/id/1059/200" alt="Snowy Cabin">
+    <img src="https://picsum.photos/id/1069/200" alt="City Skyline">
+  </div>
+
+  <div id="display">
+    <p>Hover or focus on an image to see details here.</p>
+    <img id="preview" src="" alt="">
+    <div id="altText"></div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      let images = document.querySelectorAll("#gallery img");
+      let preview = document.getElementById("preview");
+      let altText = document.getElementById("altText");
+
+      for (let i = 0; i < images.length; i++) {
+        images[i].setAttribute("tabindex", "0");
+
+        images[i].addEventListener("mouseover", function() {
+          preview.src = this.src;
+          preview.alt = this.alt;
+          altText.textContent = this.alt;
+          console.log("mouseover triggered on " + this.alt);
+        });
+
+        images[i].addEventListener("mouseleave", function() {
+          preview.src = "";
+          preview.alt = "";
+          altText.textContent = "";
+          console.log("mouseleave triggered on " + this.alt);
+        });
+
+        images[i].addEventListener("focus", function() {
+          preview.src = this.src;
+          preview.alt = this.alt;
+          altText.textContent = this.alt;
+          console.log("focus triggered on " + this.alt);
+        });
+
+        images[i].addEventListener("blur", function() {
+          preview.src = "";
+          preview.alt = "";
+          altText.textContent = "";
+          console.log("blur triggered on " + this.alt);
+        });
+      }
+    };
+  </script>
+</body>
+</html>
